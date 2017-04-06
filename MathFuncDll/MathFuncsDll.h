@@ -21,7 +21,6 @@ namespace MathFuncs
 		STDMETHOD_(double, Subtract)(DOUBLE a, DOUBLE b) = 0;
 		STDMETHOD_(double, RaiseToPower)(DOUBLE a, DOUBLE b) = 0;
 		STDMETHOD_(double, GetAnswer)() = 0;
-		/*STDMETHOD_(BSTR*, GetString)(BSTR* s) = 0;*/
 		STDMETHOD(GetString)(BSTR* input) = 0;
 		STDMETHOD(Clear)() = 0;
 		STDMETHOD(ThrowError)() = 0;
@@ -97,7 +96,7 @@ namespace MathFuncs
 		{
 			// BSTR to wstring
 			std::wstring ws(*input, SysStringLen(*input));
-			ws.append(L"_GetString()");
+			ws.append(L" GetString()");
 			
 			// Free BSTR
 			::SysFreeString(*input);
