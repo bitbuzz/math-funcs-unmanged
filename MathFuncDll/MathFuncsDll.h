@@ -19,11 +19,9 @@ namespace MathFuncs
 		// Add your own functions here they should be virtual and __stdcall
 		STDMETHOD_(double, Add)(DOUBLE a, DOUBLE b) = 0;
 		STDMETHOD_(double, Subtract)(DOUBLE a, DOUBLE b) = 0;
-		STDMETHOD_(double, RaiseToPower)(DOUBLE a, DOUBLE b) = 0;
 		STDMETHOD_(double, GetAnswer)() = 0;
 		STDMETHOD(GetString)(BSTR* input) = 0;
 		STDMETHOD(Clear)() = 0;
-		STDMETHOD(ThrowError)() = 0;
 	};
 
 	// {62A9EFC7-7FFE-4C9B-B807-3BEC802AAC26}
@@ -34,6 +32,7 @@ namespace MathFuncs
 	{		
 		// Add your own functions here they should be virtual and __stdcall
 		STDMETHOD_(double, AddOne)(DOUBLE a) = 0;
+		STDMETHOD_(double, RaiseToPower)(DOUBLE a, DOUBLE b) = 0;
 	};
 
 	class Calculator : public IScientificCalculator {
@@ -88,10 +87,6 @@ namespace MathFuncs
 			return SUCCEEDED(0);
 		}
 
-		STDMETHODIMP ThrowError() {
-			return E_FAIL;
-		}
-
 		STDMETHODIMP GetString(BSTR* input)
 		{
 			// BSTR to wstring
@@ -101,7 +96,7 @@ namespace MathFuncs
 			// Free BSTR
 			::SysFreeString(*input);
 
-			// wstring to BSTR and managed code takes ownership via marshaling
+			// wstring to BSTR and managed code takes ownership via marshalling
 			*input = SysAllocStringLen(ws.data(), ws.size());
 								
 			return SUCCEEDED(0);
@@ -127,7 +122,9 @@ namespace MathFuncs
 			}
 
 		STDMETHODIMP_(DOUBLE) IScientificCalculator::AddOne(DOUBLE a){
-			return (double)(a + 1);
+			double d = 1;
+			double result = a + 1;
+			return result;
 		}
 	};
 

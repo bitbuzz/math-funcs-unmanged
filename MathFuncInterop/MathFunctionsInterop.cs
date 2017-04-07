@@ -15,18 +15,14 @@ namespace MathFuncInterop
 		double Subtract(double a, double b);
 
 		[PreserveSig]
-		double RaiseToPower(double a, double b);
-
-		[PreserveSig]
 		double GetAnswer();
 
 		//[return: MarshalAs(UnmanagedType.BStr)]
 		//string GetString([MarshalAs(UnmanagedType.BStr)] string s);
+
 		void GetString([MarshalAs(UnmanagedType.BStr)]ref string input);
 
 		void Clear();
-
-		void ThrowError();
 	}
 
 	[ComImport]
@@ -36,6 +32,9 @@ namespace MathFuncInterop
 	{
 		[PreserveSig]
 		double AddOne(double a);
+
+		[PreserveSig]
+		double RaiseToPower(double a, double b);
 	}
 
 	public class CalculatorFactory
