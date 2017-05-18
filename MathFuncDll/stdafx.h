@@ -21,4 +21,6 @@
 #include <string.h>  
 #include <string>
 #include <Strsafe.h>
+#include <atlbase.h>
+#include <time.h>
 

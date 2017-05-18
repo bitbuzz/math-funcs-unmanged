@@ -20,7 +20,7 @@ namespace MathFuncs
 		STDMETHOD_(double, Add)(DOUBLE a, DOUBLE b) = 0;
 		STDMETHOD_(double, Subtract)(DOUBLE a, DOUBLE b) = 0;
 		STDMETHOD_(double, GetAnswer)() = 0;
-		STDMETHOD(GetString)(BSTR* input) = 0;
+		STDMETHOD(AppendString)(BSTR* input) = 0;
 		STDMETHOD(Clear)() = 0;
 	};
 
@@ -87,20 +87,7 @@ namespace MathFuncs
 			return SUCCEEDED(0);
 		}
 
-		STDMETHODIMP GetString(BSTR* input)
-		{
-			// BSTR to wstring
-			std::wstring ws(*input, SysStringLen(*input));
-			ws.append(L" GetString()");
-			
-			// Free BSTR
-			::SysFreeString(*input);
-
-			// wstring to BSTR and managed code takes ownership via marshalling
-			*input = SysAllocStringLen(ws.data(), ws.size());
-								
-			return SUCCEEDED(0);
-		}
+		STDMETHODIMP AppendString(BSTR* input);
 
 		STDMETHODIMP_(DOUBLE) GetAnswer() {
 			return _answer;

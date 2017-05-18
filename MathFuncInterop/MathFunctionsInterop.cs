@@ -18,9 +18,9 @@ namespace MathFuncInterop
 		double GetAnswer();
 
 		//[return: MarshalAs(UnmanagedType.BStr)]
-		//string GetString([MarshalAs(UnmanagedType.BStr)] string s);
+		//string AppendString([MarshalAs(UnmanagedType.BStr)] string s);
 
-		void GetString([MarshalAs(UnmanagedType.BStr)]ref string input);
+		void AppendString([MarshalAs(UnmanagedType.BStr)]ref string input);
 
 		void Clear();
 	}
