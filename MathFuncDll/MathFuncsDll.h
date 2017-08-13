@@ -1,7 +1,12 @@
-#ifndef MathFuncsDll
-#define MathFuncsDll
+//#pragma once
+
+#ifndef MATH_FUNCS_DLL
+#define MATH_FUNCS_DLL
 
 #include <stdexcept>
+#include <memory>
+#include <iostream>
+#include "MathFuncExtended.h"
 
 using namespace std;
 
@@ -18,13 +23,11 @@ namespace MathFuncs
   // http://stackoverflow.com/questions/4741035/how-do-i-dllexport-a-c-class-for-use-in-a-c-sharp-application
   struct ICalculator : public IUnknown
   {
-    // Add your own functions here they should be virtual and __stdcall
-    STDMETHOD_(double, Add)(DOUBLE a, DOUBLE b) = 0;
-    STDMETHOD_(double, Subtract)(DOUBLE a, DOUBLE b) = 0;
-    STDMETHOD_(double, GetAnswer)() = 0;
+    // Add functions, they should be virtual and __stdcall
+    STDMETHOD_(double, Add)(DOUBLE x, DOUBLE y) = 0;
+    STDMETHOD_(double, Subtract)(DOUBLE x, DOUBLE y) = 0;
     STDMETHOD(AppendInputToRandNumber)(BSTR* input) = 0;
     STDMETHOD(AppendStrings)(BSTR input1, BSTR input2, BSTR* output) = 0;
-    STDMETHOD(Clear)() = 0;
   };
 
   // {62A9EFC7-7FFE-4C9B-B807-3BEC802AAC26}
@@ -33,19 +36,18 @@ namespace MathFuncs
 
   interface IScientificCalculator : public ICalculator
   {
-    // Add your own functions here they should be virtual and __stdcall
-    STDMETHOD_(double, RaiseToPower)(DOUBLE a, DOUBLE b) = 0;
+    // Add functions, they should be virtual and __stdcall
+    STDMETHOD_(double, RaiseToPower)(DOUBLE x, DOUBLE y) = 0;
+    STDMETHOD_(double, Sin)(DOUBLE x) = 0;
+    STDMETHOD_(double, Cos)(DOUBLE x) = 0;
+    STDMETHOD_(double, Tan)(DOUBLE x) = 0;
   };
 
   class Calculator : public IScientificCalculator {
     volatile long refcount_;
 
-  private:
-    double m_answer;
-
   public:
     Calculator() : refcount_(1) {
-      m_answer = -1;
     }
 
     STDMETHODIMP QueryInterface(REFIID guid, void **pObj) {
@@ -84,33 +86,21 @@ namespace MathFuncs
       return result;
     }
 
-    STDMETHODIMP Clear() {
-      m_answer = 0;
-      return SUCCEEDED(0);
-    }
-
     STDMETHODIMP AppendInputToRandNumber(BSTR* input);
 
     STDMETHODIMP AppendStrings(BSTR input1, BSTR input2, BSTR* output);
 
-    STDMETHODIMP_(DOUBLE) GetAnswer() {
-      return m_answer;
-    }
+    STDMETHODIMP_(DOUBLE) Add(DOUBLE x, DOUBLE y);
 
-    STDMETHODIMP_(DOUBLE) Add(DOUBLE a, DOUBLE b) {
-      m_answer = (DOUBLE)(a + b);
-      return m_answer;
-    }
+    STDMETHODIMP_(DOUBLE) Subtract(DOUBLE x, DOUBLE y);
 
-    STDMETHODIMP_(DOUBLE) Subtract(DOUBLE a, DOUBLE b) {
-      m_answer = (DOUBLE)(a - b);
-      return m_answer;
-    }
+    STDMETHODIMP_(DOUBLE) IScientificCalculator::RaiseToPower(DOUBLE x, DOUBLE y);
 
-    STDMETHODIMP_(DOUBLE) IScientificCalculator::RaiseToPower(DOUBLE a, DOUBLE b) {
-      m_answer = std::pow(a, b);
-      return m_answer;
-    }
+    STDMETHODIMP_(DOUBLE) Sin(DOUBLE x);
+
+    STDMETHODIMP_(DOUBLE) IScientificCalculator::Cos(DOUBLE x);
+
+    STDMETHODIMP_(DOUBLE) IScientificCalculator::Tan(DOUBLE x);
   };
 
   extern "C" __declspec(dllexport) LPUNKNOWN WINAPI CreateInstance() { return new Calculator(); }

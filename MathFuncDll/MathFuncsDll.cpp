@@ -6,6 +6,16 @@
 
 namespace MathFuncs
 {
+  BSTR ConcatBSTRs(const BSTR& pOne, const BSTR& pTwo)
+  {
+    // Create a BSTR...
+    // BSTR sample = SysAllocString(L"This is sample ");
+    _bstr_t pWrapOne = pOne;
+    _bstr_t pWrapTwo = pTwo;
+    _bstr_t pConcat = pWrapOne + " " + pWrapTwo;
+    return pConcat;
+  }
+
   double Add(double a, double b)
   {
     return a + b;
@@ -20,22 +30,16 @@ namespace MathFuncs
   }
   double Divide(double a, double b)
   {
-    if (b == 0)
+    if (b == 0){
       throw invalid_argument("b cannot be zero!");
+      return -1;
+    }
     return a / b;
   }
 
-  BSTR ConcatBSTRs(const BSTR& pOne, const BSTR& pTwo)
-  {
-    // Create a BSTR...
-    // BSTR sample = SysAllocString(L"This is sample ");
-    _bstr_t pWrapOne = pOne;
-    _bstr_t pWrapTwo = pTwo;
-    _bstr_t pConcat = pWrapOne + " " + pWrapTwo;
-    return pConcat;
-  }
-
-  STDMETHODIMP Calculator::AppendInputToRandNumber(BSTR * input)
+  // Calculator
+  //
+  HRESULT Calculator::AppendInputToRandNumber(BSTR * input)
   {
     HRESULT hr = S_OK;
 
@@ -46,7 +50,6 @@ namespace MathFuncs
     // between 1 and 100 and convert to bstr.
     srand(time(NULL));
     int randNumber = rand() % 100 + 1;
-    m_answer = randNumber;
 
     wstring sRandNumber = std::to_wstring(randNumber);
     BSTR bstrNumber = ::SysAllocStringLen(sRandNumber.c_str(), sRandNumber.length());
@@ -69,7 +72,7 @@ namespace MathFuncs
     return hr;
   }
 
-  STDMETHODIMP Calculator::AppendStrings(BSTR input1, BSTR input2, BSTR * output)
+  HRESULT Calculator::AppendStrings(BSTR input1, BSTR input2, BSTR * output)
   {
     HRESULT hr = S_OK;
 
@@ -79,5 +82,33 @@ namespace MathFuncs
     concat.Attach(concatBstr);
     *output = concat.Detach();
     return hr;
+  }
+
+  DOUBLE Calculator::Add(DOUBLE x, DOUBLE y) {
+    return (DOUBLE)(x + y);
+  }
+
+  DOUBLE Calculator::Subtract(DOUBLE x, DOUBLE y) {
+    return (DOUBLE)(x - y);
+  }
+
+  // IScientificCalculator
+  //
+  DOUBLE Calculator::RaiseToPower(DOUBLE x, DOUBLE y) {
+    return std::pow(x, y);
+  }
+
+  DOUBLE Calculator::Sin(DOUBLE x){
+    //std::unique_ptr<MathFuncATL::MathFuncExtended> mathExt(new MathFuncATL::MathFuncExtended());
+    //DOUBLE sin = mathExt->GetSin(x);
+    return (DOUBLE)5;
+  }
+
+  DOUBLE Calculator::Cos(DOUBLE x) {
+    return std::cos(x);
+  }
+
+  DOUBLE Calculator::Tan(DOUBLE x) {
+    return std::tan(x);
   }
 }

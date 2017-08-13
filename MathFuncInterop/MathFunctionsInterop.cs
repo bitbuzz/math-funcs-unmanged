@@ -9,20 +9,16 @@ namespace MathFuncInterop
   public interface ICalculator
   {
     [PreserveSig]
-    double Add(double a, double b);
+    double Add(double x, double y);
 
     [PreserveSig]
-    double Subtract(double a, double b);
+    double Subtract(double x, double y);
 
     [PreserveSig]
-    double GetAnswer();
-
-    // [MarshalAs(UnmanagedType.BStr)]
     void AppendInputToRandNumber([In, Out] ref string input);
 
+    [PreserveSig]
     void AppendStrings([In] string input, [In] string input2, [In, Out] ref String output);
-
-    void Clear();
   }
 
   [ComImport]
@@ -31,7 +27,16 @@ namespace MathFuncInterop
   public interface IScientificCalculator : ICalculator
   {
     [PreserveSig]
-    double RaiseToPower(double a, double b);
+    double RaiseToPower(double x, double y);
+
+    [PreserveSig]
+    double Sin(double x);
+
+    [PreserveSig]
+    double Cos(double x);
+
+    [PreserveSig]
+    double Tan(double x);
   }
 
   public class CalculatorFactory

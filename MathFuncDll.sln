@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.16
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MathFuncDll", "MathFuncDll\MathFuncDll.vcxproj", "{F0952AD1-93CB-4AAD-A9C6-C53066A15761}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MathFuncInterop", "MathFuncInterop\MathFuncInterop.csproj", "{8F146201-AD2A-4A01-8150-0601AA75E38F}"
@@ -37,6 +39,7 @@ Global
 		{8F146201-AD2A-4A01-8150-0601AA75E38F}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
 		{8F146201-AD2A-4A01-8150-0601AA75E38F}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
 		{8F146201-AD2A-4A01-8150-0601AA75E38F}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{8F146201-AD2A-4A01-8150-0601AA75E38F}.Debug|Win32.Build.0 = Debug|Any CPU
 		{8F146201-AD2A-4A01-8150-0601AA75E38F}.Debug|x64.ActiveCfg = Debug|Any CPU
 		{8F146201-AD2A-4A01-8150-0601AA75E38F}.Debug|x64.Build.0 = Debug|Any CPU
 		{8F146201-AD2A-4A01-8150-0601AA75E38F}.Release|Any CPU.ActiveCfg = Release|Any CPU
