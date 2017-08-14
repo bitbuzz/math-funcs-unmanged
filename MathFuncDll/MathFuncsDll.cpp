@@ -30,7 +30,7 @@ namespace MathFuncs
   }
   double Divide(double a, double b)
   {
-    if (b == 0){
+    if (b == 0) {
       throw invalid_argument("b cannot be zero!");
       return -1;
     }
@@ -95,13 +95,15 @@ namespace MathFuncs
   // IScientificCalculator
   //
   DOUBLE Calculator::RaiseToPower(DOUBLE x, DOUBLE y) {
-    return std::pow(x, y);
+    auto answer = std::pow(x, y);
+    return answer;
   }
 
-  DOUBLE Calculator::Sin(DOUBLE x){
+  DOUBLE Calculator::Sin(DOUBLE x) {
     //std::unique_ptr<MathFuncATL::MathFuncExtended> mathExt(new MathFuncATL::MathFuncExtended());
     //DOUBLE sin = mathExt->GetSin(x);
-    return (DOUBLE)5;
+    auto answer = x + 1;
+    return answer;
   }
 
   DOUBLE Calculator::Cos(DOUBLE x) {

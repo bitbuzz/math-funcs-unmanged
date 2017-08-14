@@ -26,6 +26,7 @@ namespace MathFuncs
     // Add functions, they should be virtual and __stdcall
     STDMETHOD_(double, Add)(DOUBLE x, DOUBLE y) = 0;
     STDMETHOD_(double, Subtract)(DOUBLE x, DOUBLE y) = 0;
+    STDMETHOD_(double, RaiseToPower)(DOUBLE x, DOUBLE y) = 0;
     STDMETHOD(AppendInputToRandNumber)(BSTR* input) = 0;
     STDMETHOD(AppendStrings)(BSTR input1, BSTR input2, BSTR* output) = 0;
   };
@@ -34,10 +35,9 @@ namespace MathFuncs
   static const GUID IID_IScientificCalculator =
   { 0x62a9efc7, 0x7ffe, 0x4c9b, { 0xb8, 0x7, 0x3b, 0xec, 0x80, 0x2a, 0xac, 0x26 } };
 
-  interface IScientificCalculator : public ICalculator
+  class IScientificCalculator : public ICalculator
   {
     // Add functions, they should be virtual and __stdcall
-    STDMETHOD_(double, RaiseToPower)(DOUBLE x, DOUBLE y) = 0;
     STDMETHOD_(double, Sin)(DOUBLE x) = 0;
     STDMETHOD_(double, Cos)(DOUBLE x) = 0;
     STDMETHOD_(double, Tan)(DOUBLE x) = 0;
@@ -86,6 +86,14 @@ namespace MathFuncs
       return result;
     }
 
+    STDMETHODIMP_(DOUBLE) RaiseToPower(DOUBLE x, DOUBLE y);
+
+    STDMETHODIMP_(DOUBLE) Sin(DOUBLE x);
+
+    STDMETHODIMP_(DOUBLE) Cos(DOUBLE x);
+
+    STDMETHODIMP_(DOUBLE) Tan(DOUBLE x);
+
     STDMETHODIMP AppendInputToRandNumber(BSTR* input);
 
     STDMETHODIMP AppendStrings(BSTR input1, BSTR input2, BSTR* output);
@@ -93,14 +101,6 @@ namespace MathFuncs
     STDMETHODIMP_(DOUBLE) Add(DOUBLE x, DOUBLE y);
 
     STDMETHODIMP_(DOUBLE) Subtract(DOUBLE x, DOUBLE y);
-
-    STDMETHODIMP_(DOUBLE) IScientificCalculator::RaiseToPower(DOUBLE x, DOUBLE y);
-
-    STDMETHODIMP_(DOUBLE) Sin(DOUBLE x);
-
-    STDMETHODIMP_(DOUBLE) IScientificCalculator::Cos(DOUBLE x);
-
-    STDMETHODIMP_(DOUBLE) IScientificCalculator::Tan(DOUBLE x);
   };
 
   extern "C" __declspec(dllexport) LPUNKNOWN WINAPI CreateInstance() { return new Calculator(); }

@@ -15,6 +15,9 @@ namespace MathFuncInterop
     double Subtract(double x, double y);
 
     [PreserveSig]
+    double RaiseToPower(double x, double y);
+
+    [PreserveSig]
     void AppendInputToRandNumber([In, Out] ref string input);
 
     [PreserveSig]
@@ -26,9 +29,6 @@ namespace MathFuncInterop
   [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
   public interface IScientificCalculator : ICalculator
   {
-    [PreserveSig]
-    double RaiseToPower(double x, double y);
-
     [PreserveSig]
     double Sin(double x);
 
